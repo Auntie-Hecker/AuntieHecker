@@ -1,0 +1,77 @@
+
+Auntie Hecker Threat Intelligence Report
+Generated: 2025-07-22 22:29:18 UTC
+
+GitHub Repository: https://github.com/deppy04/AuntieHecker
+Website: https://auntiehecker.com
+
+---
+
+Executive Summary:
+The Auntie Hecker campaign is a stealthy, persistent threat operation involving covert virtualization, cloud abuse, and advanced network evasion techniques. Multiple domains, IPs, and files have been identified as malicious, indicating targeted activity across the victim’s environment.
+
+---
+
+Confirmed IOCs:
+
+Domains (examples):
+- dotdaplug.com
+- support-global-it-ss.com
+- remotewd.com
+- customleatherworkbyrichard.com
+- waconazure.com (numerous subdomains)
+- coolbreeze.eu.org, cheenikam.ca, ksjs.top
+
+File Hashes (SHA256 examples):
+- 00000048b1c9e60c14a6619f0292dea96df7f10c11cfa9ae28693219c0ae844b
+- 00001f6f733937625daa7d5d2448bb933ab4a6ea3f736ae8403fdbb3eef93ab2
+(over 200+ malicious samples observed)
+
+IP Addresses (high-risk examples):
+- 103.224.212.220
+- 104.244.42.133
+- 107.161.23.204
+
+---
+
+Observed Techniques:
+
+1. Hyper-V Persistence
+- VM services running without user intent
+- Suggests stealthy virtual environments
+
+2. Adapter Injection
+- Hidden or disconnected loopback/virtual adapters
+- Risk of covert tunneling or lateral movement
+
+3. Firewall Tampering
+- Logging disabled, profiles modified
+- Lowers visibility of attacker activity
+
+4. PowerShell Abuse
+- Reconnaissance and service inspection observed
+
+---
+
+Infrastructure Indicators:
+
+- *.waconazure.com → Azure-based dynamic domains
+- remotewd.com → Remote management
+- *.akamaitechnologies.com → Proxy/CDN abuse
+- workloadmgr.intel.com → Sandboxing, Intel control channels
+
+---
+
+Recommendations:
+
+- Block all confirmed IOC domains/IPs
+- Isolate and reimage compromised machines
+- Avoid reusing peripherals like power cords
+- Harden firewall and re-enable logging
+- Continue monitoring with SpiderFoot and VirusTotal
+
+---
+
+This report may be redistributed for investigative or research purposes.
+GitHub: https://github.com/AuntieHecker
+Website: https://auntiehecker.com
