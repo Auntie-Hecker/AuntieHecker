@@ -13,7 +13,7 @@ The July 22, 2025 event is part of a broader and longer-term attack history. Her
 ---
 
 ### 🔹 2023
-- **Lived at 393 Alfred Avenue**
+
   - The residence was later raided and linked to criminal investigations.
   - Suspected connections between Wi-Fi router activity and compromised endpoints.
 
