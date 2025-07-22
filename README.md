@@ -1,6 +1,3 @@
-# Append full timeline-style background to the cleaned GitHub README
-
-full_history_summary = """
 ## 📜 Full Incident Timeline & History
 
 The July 22, 2025 event is part of a broader and longer-term attack history. Here is a chronological breakdown of relevant incidents and findings:
