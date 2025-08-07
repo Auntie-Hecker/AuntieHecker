@@ -3,6 +3,7 @@ import Home from './components/Home';
 import CaseWebs from './components/CaseWebs';
 import ThreatLogs from './components/ThreatLogs';
 import IOCMasterLists from './components/IOCMasterLists';
+import GraphVisualization from './components/GraphVisualization';
 import ToolsAndScripts from './components/ToolsAndScripts';
 import UploadDownloadZone from './components/UploadDownloadZone';
 import ContactAbout from './components/ContactAbout';
@@ -15,6 +16,7 @@ function App() {
       <CaseWebs />
       <ThreatLogs />
       <IOCMasterLists />
+      <GraphVisualization />
       <ToolsAndScripts />
       <UploadDownloadZone />
       <ContactAbout />
