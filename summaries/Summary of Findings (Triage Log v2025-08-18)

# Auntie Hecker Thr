@@ -1,0 +1,41 @@
+## 🔍 Summary: Full triage of `20250817_062506.zip` (Windows system snapshot)
+
+### 1. Persistence & Hijack Vectors
+- ✅ No `AppInit_DLLs` or `Debugger` hijacks active
+- 🟡 `Winlogon\ShellPrograms\ShellAppRuntime.exe` present (non-standard)
+- 🔺 `VirtualBox*` mitigation entries under `IFEO` – confirms prior virtualization exposure
+
+### 2. Network / Internet Settings
+- ✅ No proxy override, no hijack found in `InternetSettings`
+- ✅ DNS, WinHTTP appear default
+- 🟡 IPv6 status still pending (needs `ipconfig_all.txt` parse)
+- ❗ Kernel-level packet monitoring via `PktMon` driver (can be misused)
+
+### 3. Services & Scheduled Tasks
+- 🟥 **Hyper-V residue**: `vmicguestinterface`, `HvHost`, `vmbus`, `vpci` (indicates WSL or virtualization was installed)
+- 🟡 Active telemetry-related services: `WindowsTrustedRT`, `jhi_service` (Intel ME), `CaptureService_49572`
+- 🟡 Scheduled Tasks include:
+  - `compattelrunner.exe` (telemetry appraiser)
+  - `MicrosoftEdgeUpdate.exe` (common persistence vector)
+  - Multiple `rundll32.exe` tasks with DLL triggers
+  - `UCPDMgr.exe` (compatibility & diagnostics)
+- ⚠️ Most tasks configured to ignore idle timeouts and avoid deletion
+
+---
+
+### 🔒 Threat Level
+- **Local Persistence Risk:** Medium
+- **Virtualization Risk:** High (Hyper-V traces + AppContainer exposure)
+- **Telemetry/Exfil Risk:** Medium → High (PktMon, TrustedRT, Intel ME)
+
+---
+
+## 🛠 Recommendations
+
+1. **Disable Scheduled Tasks:**
+   - `CompatTelRunner`, `MicrosoftEdgeUpdateTaskMachine*`, `InventorySvc`, `UCPDMgr`
+
+2. **Clean Hyper-V/WSL Traces:**
+   ```powershell
+   Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All
+   wsl --unregister <distro>  # if applicable
