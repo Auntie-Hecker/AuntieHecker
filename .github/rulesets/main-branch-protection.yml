@@ -1,0 +1,45 @@
+name: "Main Branch Protection"
+description: "Protect the main branch with essential rules for the AuntieHecker cybersecurity investigation project"
+
+# Target the main branch specifically
+target: branch
+enforcement: active
+
+conditions:
+  ref_name:
+    include:
+      - "refs/heads/main"
+
+rules:
+  # Prevent deletion of the main branch
+  - type: deletion
+  
+  # Prevent non-fast-forward updates (force pushes)
+  - type: non_fast_forward
+  
+  # Require pull requests for changes to main
+  - type: pull_request
+    parameters:
+      # Require at least 1 review for security
+      required_approving_review_count: 1
+      # Dismiss stale reviews when new commits are pushed
+      dismiss_stale_reviews_on_push: true
+      # Don't require code owner review (no CODEOWNERS file yet)
+      require_code_owner_review: false
+      # Allow bypass for repo admins in emergencies
+      required_status_checks: []
+
+  # Require status checks to pass before merging
+  - type: required_status_checks
+    parameters:
+      required_status_checks:
+        # GitHub Pages deployment must succeed
+        - context: "Deploy static content to Pages"
+      # Require branches to be up to date before merging
+      strict_required_status_checks_policy: true
+
+# Allow repository administrators to bypass these rules in emergency situations
+bypass_actors:
+  - actor_type: RepositoryRole
+    actor_id: "admin"
+    bypass_mode: "always"

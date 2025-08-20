@@ -1,0 +1,87 @@
+name: CI - Quality Checks
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  quality-checks:
+    runs-on: ubuntu-latest
+    name: Code Quality and Security Checks
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run ESLint
+        run: npm run lint
+        
+      - name: Type check with TypeScript
+        run: npx tsc --noEmit
+        
+      - name: Build application
+        run: npm run build
+        
+      - name: Security audit
+        run: npm audit --audit-level=moderate
+        continue-on-error: true
+        
+      - name: Check for sensitive data
+        run: |
+          # Check for potential secrets or sensitive data in source code
+          echo "Checking for potential secrets in source code..."
+          
+          # Check for common secret patterns in source code only (excluding analysis data, evidence, and docs)
+          if grep -r -i --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=dist \
+               --exclude-dir=evidence --exclude-dir=analysis --exclude-dir=data --exclude-dir=iocs --exclude-dir=reports \
+               --exclude="*.md" --exclude="*.txt" --exclude="*.gexf" --exclude="*.yml" --exclude="*.yaml" \
+               -E "(api_key|secret_key|password|private_key|access_token).*[:=].*['\"][a-zA-Z0-9]{16,}" src/ 2>/dev/null || true; then
+            echo "⚠️  Potential secrets found in source code. Please review."
+            # Don't fail the build, just warn
+          else
+            echo "✅ No obvious secrets found in source code."
+          fi
+          
+      - name: Validate GitHub configurations
+        run: |
+          echo "Validating GitHub workflow files..."
+          
+          # Check if workflow files are valid YAML
+          for file in .github/workflows/*.yml .github/workflows/*.yaml; do
+            if [ -f "$file" ]; then
+              echo "Checking $file..."
+              # Use node to validate YAML syntax
+              npx js-yaml "$file" > /dev/null || {
+                echo "❌ Invalid YAML in $file"
+                exit 1
+              }
+              echo "✅ $file is valid"
+            fi
+          done
+          
+          # Check if ruleset files are valid YAML
+          for file in .github/rulesets/*.yml .github/rulesets/*.yaml; do
+            if [ -f "$file" ]; then
+              echo "Checking $file..."
+              npx js-yaml "$file" > /dev/null || {
+                echo "❌ Invalid YAML in $file"
+                exit 1
+              }
+              echo "✅ $file is valid"
+            fi
+          done
