@@ -1,70 +1,71 @@
-# React + TypeScript + Vite
+# AuntieHecker - Cybersecurity Investigation Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the AuntieHecker cybersecurity investigation project, combining threat intelligence, analysis data, and a React + TypeScript web application for data visualization.
 
-Currently, two official plugins are available:
+## 🔒 Branch Protection
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This repository uses strict branch protection rules to ensure data integrity and security. See [Branch Protection Documentation](.github/BRANCH_PROTECTION.md) for details on:
+- Required pull request reviews
+- Automated quality checks
+- Security scanning
+- Contribution guidelines
 
-## Expanding the ESLint configuration
+## 🚀 Quick Start
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Development Setup
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Available Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint
+- `npm run preview` - Preview production build
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
->>>>>>> d3ab996 (Initial scaffold: Vite + React + TypeScript site)
+## 📁 Repository Structure
+
+See [ORGANIZATION.md](ORGANIZATION.md) for detailed information about the repository structure and file organization.
+
+## 🛡️ Security
+
+This project contains cybersecurity investigation data. Please review the [Security Policy](SECURITY.md) and [Branch Protection Documentation](.github/BRANCH_PROTECTION.md) before contributing.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes following the guidelines in [Branch Protection Documentation](.github/BRANCH_PROTECTION.md)
+4. Submit a pull request
+
+All contributions are subject to automated quality checks and review requirements.
+
+## 📋 Technology Stack
+
+### Web Application
+
+### Web Application
+
+- **React 19** - Modern React framework
+- **TypeScript** - Type-safe JavaScript
+- **Vite** - Fast build tool and development server
+- **ESLint** - Code linting and quality checks
+
+### Development Tools
+
+- **GitHub Actions** - Automated CI/CD workflows
+- **Branch Protection** - Enforced code review and quality gates
+- **Security Scanning** - Automated vulnerability and secret detection
+
+## 📖 Documentation
+
+- [Repository Organization](ORGANIZATION.md) - File structure and naming conventions
+- [Security Policy](SECURITY.md) - Security reporting and guidelines  
+- [Branch Protection](.github/BRANCH_PROTECTION.md) - Contribution and review process
+
+---
+
+*AuntieHecker Cybersecurity Investigation Project*
